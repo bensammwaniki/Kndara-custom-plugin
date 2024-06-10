@@ -1,0 +1,49 @@
+.kandara-form input[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background-color: #262261;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.kandara-form input[type="submit"]:hover {
+    background-color: #262261;
+}
+
+
+.kandara-form .form-group {
+    margin-bottom: 20px;
+}
+
+.kandara-form .submit-button {
+    background-color: #262261;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.kandara-form .submit-button:hover {
+    background-color: #262261;
+}
+
+.kandara-form .checkbox-label {
+    display: flex;
+    align-items: center;
+}
+
+.kandara-form .checkbox-label input {
+    margin-right: 10px;
+}
+label{
+    font-size: 14px;
+    font-weight: normal;
+}
+.form-switch .form-check-label{
+    font-size: 12px;
+    font-weight: normal;
+}
