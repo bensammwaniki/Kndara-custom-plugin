@@ -210,22 +210,22 @@ function kandara_registrations_page() {
     echo '<form method="post" action="">';
     echo '<table class="table table-hover table-bordered" style="width: 100%; border-collapse: collapse; border-spacing: 0;">';
     echo '<thead class="thead-dark"><tr>
-            <th style="padding: 8px; background-color: #343a40; color: #fff; border: 1px solid #dee2e6; text-align: center;"><input type="checkbox" id="select_all"></th>
-            <th style="padding: 8px; background-color: #343a40; color: #fff; border: 1px solid #dee2e6; text-align: center;">ID</th>
-            <th style="padding: 8px; background-color: #343a40; color: #fff; border: 1px solid #dee2e6; text-align: center;">First Name</th>
-            <th style="padding: 8px; background-color: #343a40; color: #fff; border: 1px solid #dee2e6; text-align: center;">Last Name</th>
-            <th style="padding: 8px; background-color: #343a40; color: #fff; border: 1px solid #dee2e6; text-align: center;">ID No</th>
-            <th style="padding: 8px; background-color: #343a40; color: #fff; border: 1px solid #dee2e6; text-align: center;">Email</th>
-            <th style="padding: 8px; background-color: #343a40; color: #fff; border: 1px solid #dee2e6; text-align: center;">Phone</th>
-            <th style="padding: 8px; background-color: #343a40; color: #fff; border: 1px solid #dee2e6; text-align: center;">Mpesa Phone</th>
-            <th style="padding: 8px; background-color: #343a40; color: #fff; border: 1px solid #dee2e6; text-align: center;">Runner Category</th>
-            <th style="padding: 8px; background-color: #343a40; color: #fff; border: 1px solid #dee2e6; text-align: center;">Gender</th>
-            <th style="padding: 8px; background-color: #343a40; color: #fff; border: 1px solid #dee2e6; text-align: center;">Race</th>
-            <th style="padding: 8px; background-color: #343a40; color: #fff; border: 1px solid #dee2e6; text-align: center;">T-Shirt Size</th>
-            <th style="padding: 8px; background-color: #343a40; color: #fff; border: 1px solid #dee2e6; text-align: center;">Pickup Point</th>
-            <th style="padding: 8px; background-color: #343a40; color: #fff; border: 1px solid #dee2e6; text-align: center;">Email Updates</th>
-            <th style="padding: 8px; background-color: #343a40; color: #fff; border: 1px solid #dee2e6; text-align: center;">WhatsApp Updates</th>
-            <th style="padding: 8px; background-color: #343a40; color: #fff; border: 1px solid #dee2e6; text-align: center;">Terms & Conditions</th>
+            <th style="padding: 8px; background-color: #262261; color: #fff; border: 1px solid #dee2e6; text-align: center;"><input type="checkbox" id="select_all"></th>
+            <th style="padding: 8px; background-color: #262261; color: #fff; border: 1px solid #dee2e6; text-align: center;">ID</th>
+            <th style="padding: 8px; background-color: #262261; color: #fff; border: 1px solid #dee2e6; text-align: center;">First Name</th>
+            <th style="padding: 8px; background-color: #262261; color: #fff; border: 1px solid #dee2e6; text-align: center;">Last Name</th>
+            <th style="padding: 8px; background-color: #262261; color: #fff; border: 1px solid #dee2e6; text-align: center;">ID No</th>
+            <th style="padding: 8px; background-color: #262261; color: #fff; border: 1px solid #dee2e6; text-align: center;">Email</th>
+            <th style="padding: 8px; background-color: #262261; color: #fff; border: 1px solid #dee2e6; text-align: center;">Phone</th>
+            <th style="padding: 8px; background-color: #262261; color: #fff; border: 1px solid #dee2e6; text-align: center;">Mpesa Phone</th>
+            <th style="padding: 8px; background-color: #262261; color: #fff; border: 1px solid #dee2e6; text-align: center;">Runner Category</th>
+            <th style="padding: 8px; background-color: #262261; color: #fff; border: 1px solid #dee2e6; text-align: center;">Gender</th>
+            <th style="padding: 8px; background-color: #262261; color: #fff; border: 1px solid #dee2e6; text-align: center;">Race</th>
+            <th style="padding: 8px; background-color: #262261; color: #fff; border: 1px solid #dee2e6; text-align: center;">T-Shirt Size</th>
+            <th style="padding: 8px; background-color: #262261; color: #fff; border: 1px solid #dee2e6; text-align: center;">Pickup Point</th>
+            <th style="padding: 8px; background-color: #262261; color: #fff; border: 1px solid #dee2e6; text-align: center;">Email Updates</th>
+            <th style="padding: 8px; background-color: #262261; color: #fff; border: 1px solid #dee2e6; text-align: center;">WhatsApp Updates</th>
+            <th style="padding: 8px; background-color: #262261; color: #fff; border: 1px solid #dee2e6; text-align: center;">Terms & Conditions</th>
           </tr></thead><tbody>';
 
     foreach ($results as $row) {
