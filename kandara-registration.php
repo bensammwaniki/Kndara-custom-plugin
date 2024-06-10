@@ -3,7 +3,7 @@
  * Plugin Name: Kandara Registration
  * Description: A custom plugin for Kandara Marathon registration form.
  * Version: 1.0
- * Author: Your Name
+ * Author: Bensam Mwaniki
  */
 
 // Exit if accessed directly
