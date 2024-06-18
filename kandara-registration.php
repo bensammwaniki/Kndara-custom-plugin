@@ -191,58 +191,57 @@ function kandara_registration_form() {
 }
 
 // Shortcode for volunteering registration form
-function kandara_volunteer_registration_form_shortcode() {
-    ob_start(); ?>
-                    <h2>Volunteer Registration</h2>
-            <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="kandara-form">
-                <input type="hidden" name="action" value="kandara_process_volunteer_form">
-                <?php wp_nonce_field('kandara-volunteer-form', 'kandara-volunteer-nonce'); ?>
-                <div class="container text-start">
-                    <div class="row align-items-start">
-                        <div class="form-group col-6">
-                            <label for="first_name_volunteer">First & Second Name</label>
-                            <input type="text" name="first_name_volunteer" id="first_name" class="form-control" required>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="last_name_volunteer">Last Name</label>
-                            <input type="text" name="last_name_volunteer" id="last_name" class="form-control" required>
-                        </div>
+function kandara_volunteer_registration_form() {
+    ob_start(); 
+    ?>
+    <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="kandara-form">
+        <input type="hidden" name="action" value="kandara_process_volunteer_form">
+        <?php wp_nonce_field('kandara-volunteer-form', 'kandara-volunteer-nonce'); ?>
 
-                        <div class="form-group col-6">
-                            <label for="email_volunteer">Email</label>
-                            <input type="email" name="email_volunteer" id="email" class="form-control" required>
-                        </div>
-                        <div class="form-group col-6">
-                            <label for="phone_volunteer">Phone Number</label>
-                            <input type="text" name="phone_volunteer" id="phone" class="form-control" required>
-                        </div>
-                        <hr style="width:100%;text-align:left;margin:20px 0px 20px 0px;">
-
-                        <div class="form-group col-6">
-                            <label for="area_of_interest">Please select the role you would like to volunteer</label>
-                            <select name="area_of_interest" id="pickup_point" class="form-select" required>
-                                <option value="Nairobi (Pension Towers, Loita street 2nd Floor)">Nairobi (Pension Towers, Loita street 2nd Floor)</option>
-                                <option value="Kandara (Kamurugu NTK Sacco Office)">Kandara (Kamurugu NTK Sacco Office)</option>
-                                <option value="Thika (Arrow Dental Centre. Thika Gateway Plaza, Gatitu Next to Total Petrol Station)">Thika (Arrow Dental Centre. Thika Gateway Plaza, Gatitu Next to Total Petrol Station)</option>
-                            </select>
-                        </div>
-
-                        </div class="form-group col-6">
-                            <input type="submit" name="kandara_registration_submit" value="Volunteer" class="btn btn-primary">
-                        </div>
-
-                    </div>
+        <div class="container text-start">
+            <h2>Volunteer Registration</h2>
+            <div class="row align-items-start">
+                <div class="form-group col-6">
+                    <label for="first_name_volunteer">First & Second Name</label>
+                    <input type="text" name="first_name_volunteer" id="first_name" class="form-control" required>
                 </div>
+                <div class="form-group col-6">
+                    <label for="last_name_volunteer">Last Name</label>
+                    <input type="text" name="last_name_volunteer" id="last_name" class="form-control" required>
                 </div>
-            </form>
+
+                <div class="form-group col-6">
+                    <label for="email_volunteer">Email</label>
+                    <input type="email" name="email_volunteer" id="email" class="form-control" required>
+                </div>
+                <div class="form-group col-6">
+                    <label for="phone_volunteer">Phone Number</label>
+                    <input type="text" name="phone_volunteer" id="phone" class="form-control" required>
+                </div>
+                <hr style="width:100%;text-align:left;margin:20px 0px 20px 0px;">
+
+                <div class="form-group col-6">
+                    <label for="area_of_interest">Please select the role you would like to volunteer</label>
+                    <select name="area_of_interest" id="area_of_interest" class="form-select" required>
+                        <option value="Nairobi (Pension Towers, Loita street 2nd Floor)">Nairobi (Pension Towers, Loita street 2nd Floor)</option>
+                        <option value="Kandara (Kamurugu NTK Sacco Office)">Kandara (Kamurugu NTK Sacco Office)</option>
+                        <option value="Thika (Arrow Dental Centre. Thika Gateway Plaza, Gatitu Next to Total Petrol Station)">Thika (Arrow Dental Centre. Thika Gateway Plaza, Gatitu Next to Total Petrol Station)</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-6"> 
+                   <label for="kandara_registration_submit">* Please note all areas must be filled to volunteer</label>
+                    <input type="submit" name="kandara_registration_submit" value="Volunteer" class="btn btn-primary">
+                </div>
+            </div> 
+        </div> 
+    </form>
 
     <?php
     return ob_get_clean();
 }
-add_shortcode('kandara_volunteer_registration_form', 'kandara_volunteer_registration_form_shortcode');
 
-
-
+add_shortcode('kandara_volunteer_registration_form', 'kandara_volunteer_registration_form');
 
 add_action('admin_post_nopriv_kandara_process_form', 'kandara_handle_form_submission');
 add_action('admin_post_kandara_process_form', 'kandara_handle_form_submission');
@@ -292,13 +291,14 @@ function kandara_handle_form_submission() {
         );
 
         // Redirect to thank you page
-        wp_redirect(home_url('/thank-you'));
-        exit;
+        echo '<script>
+                alert("Thank you for volunteering!");
+              </script>';
     }
 }
 
 function kandara_handle_volunteer_form_submission() {
-    if (isset($_POST['kandara_register_volunteer'])) {
+    if (isset($_POST['kandara_registration_submit'])) { 
         if (!isset($_POST['kandara-volunteer-nonce']) || !wp_verify_nonce($_POST['kandara-volunteer-nonce'], 'kandara-volunteer-form')) {
             wp_die('Nonce verification failed');
         }
@@ -312,7 +312,8 @@ function kandara_handle_volunteer_form_submission() {
         $email = sanitize_email($_POST['email_volunteer']);
         $phone = sanitize_text_field($_POST['phone_volunteer']);
         $area_of_interest = sanitize_text_field($_POST['area_of_interest']);
-        $wpdb->insert(
+
+        $insert_result = $wpdb->insert(
             $table_name,
             array(
                 'first_name' => $first_name,
@@ -323,13 +324,14 @@ function kandara_handle_volunteer_form_submission() {
             )
         );
 
-        // Redirect to thank you page
-        wp_redirect(home_url('/thank-you'));
-        exit;
+        echo '<script>
+                alert("Thank you for volunteering!");
+              </script>';
     }
 }
 add_action('admin_post_nopriv_kandara_process_volunteer_form', 'kandara_handle_volunteer_form_submission');
 add_action('admin_post_kandara_process_volunteer_form', 'kandara_handle_volunteer_form_submission');
+
 // Display registrations in admin panel
 add_action('admin_menu', 'kandara_plugin_menu');
 
@@ -348,7 +350,10 @@ function kandara_registrations_page() {
     $results = $wpdb->get_results("SELECT * FROM $table_name");
 
     echo '<div class="wrap"><h1 style="text-align: center; margin-bottom: 20px;">Kandara Registrations</h1>';
-    echo '<form method="post" action="">';
+    echo '<form method="post" action="' . esc_url(admin_url('admin-post.php')) . '">';
+    echo '<input type="hidden" name="action" value="kandara_delete_selected_rows">';
+    wp_nonce_field('kandara_delete_selected', 'kandara_delete_nonce');
+    echo '<input type="hidden" name="table_name" value="kandara_registrations">';
     echo '<table class="table table-hover table-bordered" style="width: 100%; border-collapse: collapse; border-spacing: 0;">';
     echo '<thead class="thead-dark"><tr>
             <th style="padding: 8px; background-color: #262261; color: #fff; border: 1px solid #dee2e6; text-align: center;"><input type="checkbox" id="select_all"></th>
@@ -395,8 +400,12 @@ function kandara_registrations_page() {
 
     echo '</tbody></table>';
     echo '<button type="submit" name="delete_selected" class="btn btn-danger" style="margin:20px;">Delete Selected</button>';
-    echo '<button type="submit" name="export_csv" class="btn btn-primary" style="margin:20px;">Export CSV</button>';
     echo '</form>';
+    echo '<form id="form-export" method="post" action="' . esc_url(admin_url('admin-post.php')) . '">';
+    echo '<input type="hidden" name="action" value="kandara_export_csv">';
+    echo '<input type="hidden" name="table_name" value="kandara_registrations">';
+    wp_nonce_field('kandara_export_csv', 'kandara_export_nonce');
+    echo '<button type="submit" name="export_csv" class="btn btn-primary" style="margin:20px;">Export CSV</button>';
     echo '</form>';
     echo '</div>';
     echo '<script type="text/javascript">
@@ -428,7 +437,10 @@ function kandara_volunteer_registrations_page() {
     $results = $wpdb->get_results("SELECT * FROM $table_name");
 
     echo '<div class="wrap"><h1 style="text-align: center; margin-bottom: 20px;">Volunteer Registrations</h1>';
-    echo '<form method="post" action="">';
+    echo '<form method="post" action="' . esc_url(admin_url('admin-post.php')) . '">';
+    echo '<input type="hidden" name="action" value="kandara_delete_selected_rows">';
+    wp_nonce_field('kandara_delete_selected', 'kandara_delete_nonce');
+    echo '<input type="hidden" name="table_name" value="kandara_volunteers">';
     echo '<table class="table table-hover table-bordered" style="width: 100%; border-collapse: collapse; border-spacing: 0;">';
     echo '<thead class="thead-dark"><tr>
             <th style="padding: 8px; background-color: #262261; color: #fff; border: 1px solid #dee2e6; text-align: center;"><input type="checkbox" id="select_all_volunteers"></th>
@@ -442,7 +454,7 @@ function kandara_volunteer_registrations_page() {
 
     foreach ($results as $row) {
         echo '<tr>';
-        echo '<td style="padding: 8px; border: 1px solid #dee2e6; text-align: center;"><input type="checkbox" class="row_checkbox_volunteers" name="selected_volunteer_ids[]" value="' . $row->id . '"></td>';
+        echo '<td style="padding: 8px; border: 1px solid #dee2e6; text-align: center;"><input type="checkbox" class="row_checkbox_volunteers" name="selected_ids[]" value="' . $row->id . '"></td>';
         echo '<td style="padding: 8px; border: 1px solid #dee2e6; text-align: center;">' . $row->id . '</td>';
         echo '<td style="padding: 8px; border: 1px solid #dee2e6; text-align: center;">' . $row->first_name . '</td>';
         echo '<td style="padding: 8px; border: 1px solid #dee2e6; text-align: center;">' . $row->last_name . '</td>';
@@ -454,8 +466,12 @@ function kandara_volunteer_registrations_page() {
 
     echo '</tbody></table>';
     echo '<button type="submit" name="delete_selected" class="btn btn-danger" style="margin:20px;">Delete Selected</button>';
-    echo '<button type="submit" name="export_csv" class="btn btn-primary" style="margin:20px;">Export CSV</button>';
     echo '</form>';
+    echo '<form id="form-export" method="post" action="' . esc_url(admin_url('admin-post.php')) . '">';
+    echo '<input type="hidden" name="action" value="kandara_export_csv">';
+    echo '<input type="hidden" name="table_name" value="kandara_volunteers">';
+    wp_nonce_field('kandara_export_csv', 'kandara_export_nonce');
+    echo '<button type="submit" name="export_csv" class="btn btn-primary" style="margin:20px;">Export CSV</button>';
     echo '</form>';
     echo '</div>';
     echo '<script type="text/javascript">
@@ -468,62 +484,58 @@ function kandara_volunteer_registrations_page() {
     </script>';
 }
 
-function kandara_handle_admin_actions() {
-    global $wpdb;
+// delete function
 
-    if (isset($_POST['delete_selected'])) {
-        $table_name = $wpdb->prefix . 'kandara_registrations';
-        $selected_ids = $_POST['selected_ids'];
-        if (!empty($selected_ids)) {
-            foreach ($selected_ids as $id) {
-                $wpdb->delete($table_name, array('id' => intval($id)));
-            }
+function kandara_delete_selected_rows() {
+    if (isset($_POST['delete_selected']) && isset($_POST['selected_ids']) && isset($_POST['table_name'])) {
+        if (!isset($_POST['kandara_delete_nonce']) || !wp_verify_nonce($_POST['kandara_delete_nonce'], 'kandara_delete_selected')) {
+            wp_die('Nonce verification failed');
         }
-    }
 
-    if (isset($_POST['export_csv'])) {
-        $table_name = $wpdb->prefix . 'kandara_registrations';
-        $results = $wpdb->get_results("SELECT * FROM $table_name", ARRAY_A);
-        if (!empty($results)) {
-            $filename = 'kandara_registrations_' . date('Y-m-d') . '.csv';
-            header('Content-Type: text/csv');
-            header('Content-Disposition: attachment;filename=' . $filename);
-            $output = fopen('php://output', 'w');
-            fputcsv($output, array_keys($results[0]));
-            foreach ($results as $row) {
-                fputcsv($output, $row);
-            }
-            fclose($output);
-            exit;
-        }
-    }
+        global $wpdb;
+        $table_name = $wpdb->prefix . sanitize_text_field($_POST['table_name']);
+        $selected_ids = implode(",", array_map('intval', $_POST['selected_ids']));
+        $wpdb->query("DELETE FROM $table_name WHERE id IN ($selected_ids)");
 
-    if (isset($_POST['delete_selected_volunteers'])) {
-        $table_name = $wpdb->prefix . 'kandara_volunteers';
-        $selected_ids = $_POST['selected_volunteer_ids'];
-        if (!empty($selected_ids)) {
-            foreach ($selected_ids as $id) {
-                $wpdb->delete($table_name, array('id' => intval($id)));
-            }
-        }
-    }
-
-    if (isset($_POST['export_volunteers_csv'])) {
-        $table_name = $wpdb->prefix . 'kandara_volunteers';
-        $results = $wpdb->get_results("SELECT * FROM $table_name", ARRAY_A);
-        if (!empty($results)) {
-            $filename = 'kandara_volunteers_' . date('Y-m-d') . '.csv';
-            header('Content-Type: text/csv');
-            header('Content-Disposition: attachment;filename=' . $filename);
-            $output = fopen('php://output', 'w');
-            fputcsv($output, array_keys($results[0]));
-            foreach ($results as $row) {
-                fputcsv($output, $row);
-            }
-            fclose($output);
-            exit;
-        }
+        wp_redirect($_SERVER['HTTP_REFERER']);
+        exit;
     }
 }
+add_action('admin_post_kandara_delete_selected_rows', 'kandara_delete_selected_rows');
+// export
+
+function kandara_export_csv() {
+    if (!isset($_POST['kandara_export_nonce']) || !wp_verify_nonce($_POST['kandara_export_nonce'], 'kandara_export_csv')) {
+        wp_die('Nonce verification failed.');
+    }
+
+    if (isset($_POST['export_csv']) && isset($_POST['table_name'])) {
+        global $wpdb;
+        $table_name = $wpdb->prefix . sanitize_text_field($_POST['table_name']);
+        $results = $wpdb->get_results("SELECT * FROM $table_name", ARRAY_A);
+
+        if (empty($results)) {
+            wp_die('No data found to export.');
+        }
+
+        $filename = $table_name . '_' . date('Y-m-d_H-i-s') . '.csv';
+
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename=' . $filename);
+
+        $output = fopen('php://output', 'w');
+
+        fputcsv($output, array_keys($results[0]));
+
+        // Output the rows
+        foreach ($results as $row) {
+            fputcsv($output, $row);
+        }
+
+        fclose($output);
+        exit;
+    }
+}
+add_action('admin_post_kandara_export_csv', 'kandara_export_csv');
 
 ?>
